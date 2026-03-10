@@ -1,0 +1,87 @@
+version: "3.8"
+
+services:
+  mariadb:
+    build: ../requirements/mariadb
+    container_name: mariadb
+    env_file:
+      - ../.env
+    secrets:
+      - db_root_password
+      - db_password
+      - db_user
+    volumes:
+      - mariadb_data:/var/lib/mysql
+    restart: always
+    networks:
+      - inception
+
+  wordpress:
+    build: ../requirements/wordpress
+    container_name: wordpress
+    env_file:
+      - ../.env
+    secrets:
+      - db_password
+      - db_user
+      - wp_admin_user
+      - wp_admin_password
+      - wp_user
+      - wp_user_password
+    volumes:
+      - wordpress_data:/var/www/html
+    depends_on:
+      - mariadb
+    restart: always
+    networks:
+      - inception
+
+  nginx:
+    build: ../requirements/nginx
+    container_name: nginx
+    env_file:
+      - ../.env
+    ports:
+      - "443:443"
+    volumes:
+      - wordpress_data:/var/www/html
+    depends_on:
+      - wordpress
+    restart: always
+    networks:
+      - inception
+
+networks:
+  inception:
+    driver: bridge
+
+volumes:
+  mariadb_data:
+    driver: local
+    driver_opts:
+      type: none
+      o: bind
+      device: /home/nicolsan/data/mariadb
+
+  wordpress_data:
+    driver: local
+    driver_opts:
+      type: none
+      o: bind
+      device: /home/nicolsan/data/wordpress
+
+secrets:
+  db_root_password:
+    file: ../../secrets/db_root_password.txt
+  db_password:
+    file: ../../secrets/db_password.txt
+  db_user:
+    file: ../../secrets/db_user.txt
+  wp_admin_user:
+    file: ../../secrets/wp_admin_user.txt
+  wp_admin_password:
+    file: ../../secrets/wp_admin_password.txt
+  wp_user:
+    file: ../../secrets/wp_user.txt
+  wp_user_password:
+    file: ../../secrets/wp_user_password.txt

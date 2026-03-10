@@ -30,13 +30,19 @@ Create secrets fisrt or it will not work
 
 mkdir secrets
 
-echo wpuser > secrets/db_user.txt  
-echo nicolsan > secrets/wp_admin_user.txt  
-echo user > secrets/wp_user.txt  
-echo rootpass > secrets/db_root_password.txt  
-echo wppassword > secrets/db_password.txt  
-echo adminpass > secrets/wp_admin_password.txt  
-echo userpass > secrets/wp_user_password.txt  
+mkdir -p secrets
+
+echo wpuser > secrets/db_user.txt
+echo nicolsan > secrets/wp_admin_user.txt
+echo user > secrets/wp_user.txt
+
+echo rootpass > secrets/db_root_password.txt
+echo wppassword > secrets/db_password.txt
+echo adminpass > secrets/wp_admin_password.txt
+echo userpass > secrets/wp_user_password.txt
+
+echo admin@nicolsan.42.fr > secrets/wp_admin_email.txt
+echo user@nicolsan.42.fr > secrets/wp_user_email.txt
 
 ## Start the project
 

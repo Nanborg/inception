@@ -1,4 +1,4 @@
-FROM debian:bullseye
+FROM debian:12
 
 RUN apt-get update && apt-get install -y php-fpm php-mysql curl mariadb-client net-tools procps \
     && curl -o /usr/local/bin/wp https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli.phar \

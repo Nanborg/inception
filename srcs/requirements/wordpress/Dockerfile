@@ -12,7 +12,7 @@ WORKDIR /var/www/html
 RUN curl -O https://wordpress.org/latest.tar.gz \
     && tar -xzf latest.tar.gz --strip-components=1
 
-COPY conf/www.conf /etc/php/7.4/fpm/pool.d/www.conf
+COPY conf/www.conf /etc/php/8.2/fpm/pool.d/www.conf
 COPY tools/setup.sh /setup.sh
 RUN chmod +x /setup.sh
 

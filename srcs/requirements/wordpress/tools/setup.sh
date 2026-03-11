@@ -46,5 +46,5 @@ if ! wp user get "$WP_USER" --field=ID --allow-root --path=/var/www/html >/dev/n
 		--path=/var/www/html
 fi
 
-exec php-fpm7.4 -F
+exec php-fpm8.2 -F
 

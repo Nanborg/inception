@@ -1,6 +1,6 @@
 ##LOGIN = nicolsan
 DATA_PATH ?= $(HOME)/data
-COMPOSE = DATA_PATH="$(DATA_PATH)" docker-compose -f srcs/docker-compose/docker-compose.yml
+COMPOSE = DATA_PATH="$(DATA_PATH)" docker-compose -f srcs/docker-compose.yml
 
 all:
 	mkdir -p $(DATA_PATH)/mariadb

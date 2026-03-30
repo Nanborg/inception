@@ -1,3 +1,5 @@
+.DEFAULT_GOAL := all
+
 ##LOGIN = nicolsan
 DATA_PATH ?= $(HOME)/data
 COMPOSE = DATA_PATH="$(DATA_PATH)" docker-compose -f srcs/docker-compose.yml
@@ -6,6 +8,7 @@ env:
 	@{ \
 	echo "DATA_PATH=$(DATA_PATH)"; \
 	echo "MYSQL_DATABASE=wordpress"; \
+	echo "DOMAIN_NAME=nicolsan.42.fr"; \
 	echo "MYSQL_USER=$$(cat secrets/db_user.txt)"; \
 	echo "MYSQL_PASSWORD=$$(cat secrets/db_password.txt)"; \
 	echo "MYSQL_ROOT_PASSWORD=$$(cat secrets/db_root_password.txt)"; \
@@ -21,13 +24,13 @@ all: env
 	mkdir -p $(DATA_PATH)/mariadb
 	mkdir -p $(DATA_PATH)/wordpress
 	chmod 600 secrets/*.txt
-	$(COMPOSE) up --build -d
+	$(COMPOSE) up -d --build --remove-orphans
 
 down:
 	$(COMPOSE) down
 
 clean:
-	$(COMPOSE) down -v
+	$(COMPOSE) down -v --remove-orphans
 
 fclean: clean
 	docker system prune -af
@@ -36,3 +39,5 @@ fclean: clean
 	mkdir -p $(DATA_PATH)/wordpress
 
 re: fclean all
+
+.PHONY: env all down clean fclean re

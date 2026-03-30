@@ -1,7 +1,6 @@
 services:
   mariadb:
     build: requirements/mariadb
-    container_name: mariadb
     env_file:
       - .env
     secrets:
@@ -16,7 +15,6 @@ services:
 
   wordpress:
     build: requirements/wordpress
-    container_name: wordpress
     env_file:
       - .env
     secrets:
@@ -38,7 +36,6 @@ services:
 
   nginx:
     build: requirements/nginx
-    container_name: nginx
     env_file:
       - .env
     ports:
@@ -89,4 +86,3 @@ secrets:
     file: ../secrets/wp_admin_email.txt
   wp_user_email:
     file: ../secrets/wp_user_email.txt
-  

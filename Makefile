@@ -5,6 +5,7 @@ COMPOSE = DATA_PATH="$(DATA_PATH)" docker-compose -f srcs/docker-compose.yml
 env:
 	@{ \
 	echo "DATA_PATH=$(DATA_PATH)"; \
+	echo "MYSQL_DATABASE=wordpress"; \
 	echo "MYSQL_USER=$$(cat secrets/db_user.txt)"; \
 	echo "MYSQL_PASSWORD=$$(cat secrets/db_password.txt)"; \
 	echo "MYSQL_ROOT_PASSWORD=$$(cat secrets/db_root_password.txt)"; \

@@ -2,7 +2,21 @@
 DATA_PATH ?= $(HOME)/data
 COMPOSE = DATA_PATH="$(DATA_PATH)" docker-compose -f srcs/docker-compose.yml
 
-all:
+env:
+	@{ \
+	echo "DATA_PATH=$(DATA_PATH)"; \
+	echo "MYSQL_USER=$$(cat secrets/db_user.txt)"; \
+	echo "MYSQL_PASSWORD=$$(cat secrets/db_password.txt)"; \
+	echo "MYSQL_ROOT_PASSWORD=$$(cat secrets/db_root_password.txt)"; \
+	echo "WP_ADMIN_USER=$$(cat secrets/wp_admin_user.txt)"; \
+	echo "WP_ADMIN_PASSWORD=$$(cat secrets/wp_admin_password.txt)"; \
+	echo "WP_ADMIN_EMAIL=$$(cat secrets/wp_admin_email.txt)"; \
+	echo "WP_USER=$$(cat secrets/wp_user.txt)"; \
+	echo "WP_USER_PASSWORD=$$(cat secrets/wp_user_password.txt)"; \
+	echo "WP_USER_EMAIL=$$(cat secrets/wp_user_email.txt)"; \
+	} > srcs/.env
+
+all: env
 	mkdir -p $(DATA_PATH)/mariadb
 	mkdir -p $(DATA_PATH)/wordpress
 	chmod 600 secrets/*.txt
